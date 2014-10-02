@@ -1,0 +1,59 @@
+<html>
+<head>
+	<title>drizzag test</title>
+	<meta charset="utf-8">
+	<script src="http://cdnjs.buttflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="drizzag.js"></script>
+	<script>
+		$(function() {
+			$(document.documentElement).drizzag();
+
+			$("#item").on("dragstart", function(event) {
+				// console.log("dragstart");
+				// debugger;
+				event.originalEvent.dataTransfer.setData("something", "value");
+			});
+
+			$("#target").on("dragenter dragover", function(event) {
+				event.preventDefault();
+			}).on("dragenter", function(event) {
+				console.log("dragenter");
+			}).on("enter.drizzag", function(jq, event) {
+				console.log("enter.drizzag", event);
+			}).on("dragleave", function(event) {
+				console.log("dragleave");
+			}).on("leave.drizzag", function(jq, event) {
+				console.log("leave.drizzag", event);
+			});
+
+		});
+	</script>
+
+	<style>
+		#target {
+			background-color: #edc;
+			border: solid black 1px;
+			padding: 2em;
+		}
+		[draggable=true] {
+			cursor: move;
+		}
+		.dragTarget {
+			border: solid red 1px !important;
+		}
+	</style>
+</head>
+<body>
+	<div id="item" draggable="true">I am draggable</div>
+
+	<div id="target">
+		<p id="p1">This is something</p>
+		<p id="p2">This is something else</p>
+		<p id="p3">This is <b>something</b> inside of something</p>
+	</div>
+
+	<p id="p4">
+		This is just some other stuff.
+	</p>
+</body>
+</html>
